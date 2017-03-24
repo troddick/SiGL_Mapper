@@ -2,7 +2,7 @@ SiGL_Mapper
 ========================
 
 
-A web mapping application starter based on Angular 2 and Leaflet. 
+A web mapping application starter based on Angular 2 and Leaflet. Based off of https://github.com/haoliangyu/angular2-leaflet-starter
 
 
 How to start?

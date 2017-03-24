@@ -14,4 +14,4 @@ This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.c
 
 2.	Run `npm run build` to build the project.
 
-3.  Open the app at `public/index.html`.
+3.  Open the app at `dist/index.html`.

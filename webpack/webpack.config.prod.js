@@ -8,8 +8,8 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const srcDir = 'public_src';
-const outputDir = '../public';
+const srcDir = 'src';
+const outputDir = '../dist';
 
 module.exports = {
     devtool: "source-map",
@@ -18,7 +18,7 @@ module.exports = {
         'app': path.resolve(srcDir, 'bootstrap.ts')
     },
     output: {
-        path: path.resolve(__dirname,outputDir),// path.resolve(__dirname, './public'),
+        path: path.resolve(__dirname,outputDir),
         filename: '[name].[hash].bundle.js',
         sourceMapFilename: '[name].[hash].map',
         chunkFilename: '[id].[hash].chunk.js'
@@ -33,15 +33,14 @@ module.exports = {
             { test: /\.component\.html$/, use: 'raw-loader' },
             { test: /(\.component|)\.less$/, use: ['to-string-loader', 'css-loader', 'less-loader'] },
             { test: /\.css$/, use: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'}) },
-            { test: /\.(png|gif|jpg)$/, use: 'file-loader' },
-            // For font-awesome, created by Turbo87:
-            // https://gist.github.com/Turbo87/e8e941e68308d3b40ef6
-            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use: 'url-loader' },
-            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use: 'url-loader' },
-            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use: 'url-loader' },
-            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'url-loader' },
-            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: 'url-loader' }
-        ]//,
+           { test: /\.(png|gif|jpg)$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]}
+        ],        
+      //  noParse: /node_modules|angular2|bundles/
         //noParse: [ path.join(__dirname, 'node_modules', 'angular2', 'bundles') ]
     },
     plugins: [
@@ -60,12 +59,12 @@ module.exports = {
         /*new webpack.ContextReplacementPlugin(
          // The (\\|\/) piece accounts for path separators in *nix and Windows
          /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-         root('./public_src'), // location of your src
+         root('./src'), // location of your src
          { }
         ),*/
          new webpack.ContextReplacementPlugin(
              /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-            root('./public_src')
+            root('./src')
         ),
         new ScriptExtHtmlWebpackPlugin({
           defaultAttribute: 'defer'

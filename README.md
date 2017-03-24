@@ -8,7 +8,7 @@ A web mapping application starter based on Angular 2 and Leaflet. Based off of h
 How to start?
 --------------
 
-This project requires [npm](https://www.npmjs.com/) (or [yarn](https://yarnpkg.com/)).
+This project requires [npm](https://www.npmjs.com/).
 
 1.	Run `npm install` to install dependencies.
 

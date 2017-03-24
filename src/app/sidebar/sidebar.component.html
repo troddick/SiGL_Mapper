@@ -7,10 +7,34 @@
         <div style="padding-top: 10px;">
             <div id="sitesTab" *ngIf="selectedTabName==='sites'">
                 <div id="sitesContent">
-                    <h2>something about SITES</h2>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
-                </div> 
-            </div>
+                    <h2>Enter at least one search term.</h2>
+                    <div class="sidebar-item">
+                        <label>Parameters:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <select [ngModel]="selectedParameter" (ngModelChange)="onRegSelect($event)" name="parameter">
+                                    <option [ngValue]="p" *ngFor="let p of parameterList">{{p.parameter}}</option>                                    
+                                </select>                                
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end sidebar-item-->   
+
+                    <div class="sidebar-item">
+                        <label>Project Duration:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <select [ngModel]="selectedProjDuration" (ngModelChange)="onRegSelect($event)" name="projDuration">
+                                    <option [ngValue]="pd" *ngFor="let pd of projDurationList">{{pd.duration_value}}</option>                                    
+                                </select>                                
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end sidebar-item-->   
+
+                                  
+                </div><!--end sitesContent-->
+            </div><!-- end sitesTab-->
             <div id="projectsTab" *ngIf="selectedTabName==='projects'">
                 <div id="projectContent">
                     <h2>something about PROJECTS</h2>

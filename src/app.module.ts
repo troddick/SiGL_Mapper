@@ -8,9 +8,9 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppComponent} from "./app/app.component";
 import {MainviewComponent} from "./app/mainview/mainview.component";
 import {SidebarComponent} from "./app/sidebar/sidebar.component";
- // import {ToolbarComponent} from "./components/toolbar/toolbar.component";
 import {NavbarComponent} from "./app/navbar/navbar.component";
 
+import {SiGLService} from "./services/siglservices.service";
 import {MapService} from "./services/map.service";
 import {GeocodingService} from "./services/geocoding.service";
 
@@ -18,7 +18,7 @@ import {GeocodingService} from "./services/geocoding.service";
     bootstrap: [AppComponent],
     imports: [HttpModule, FormsModule, BrowserModule],
     declarations: [ AppComponent, MainviewComponent, SidebarComponent, NavbarComponent ],
-    providers: [ MapService, GeocodingService ]
+    providers: [ SiGLService,MapService, GeocodingService ]
 })
 
 export class AppModule {}

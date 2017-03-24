@@ -13,7 +13,7 @@ const outputDir = './public';
 module.exports = {
     devtool: "eval",
     entry: {       
-        'vendor': path.resolve(srcDir, 'libs.ts'),
+        //'vendor': path.resolve(srcDir, 'libs.ts'),
         'app': path.resolve(srcDir, 'bootstrap.ts')
     },
     output: {

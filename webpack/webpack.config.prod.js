@@ -14,7 +14,7 @@ const outputDir = './public';
 module.exports = {
     devtool: "source-map",
     entry: {
-        'vendor': path.resolve(srcDir, 'libs.ts'),
+       // 'vendor': path.resolve(srcDir, 'libs.ts'),
         'app': path.resolve(srcDir, 'bootstrap.ts')
     },
     output: {

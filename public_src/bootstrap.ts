@@ -5,8 +5,9 @@ import {FormsModule}   from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 
 import {AppComponent} from "./components/app/app.component";
-import {NavigatorComponent} from "./components/navigator/navigator.component";
-import {ToolbarComponent} from "./components/toolbar/toolbar.component";
+ // import {NavigatorComponent} from "./components/navigator/navigator.component";
+ // import {ToolbarComponent} from "./components/toolbar/toolbar.component";
+import {SiglFiltersComponent} from "./components/siglfilters/siglfilters.component";
 
 import {MapService} from "./services/map.service";
 import {GeocodingService} from "./services/geocoding.service";
@@ -16,8 +17,9 @@ import {GeocodingService} from "./services/geocoding.service";
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-        NavigatorComponent,
-        ToolbarComponent
+  //      NavigatorComponent,
+       // ToolbarComponent,
+        SiglFiltersComponent
     ],
     providers: [
         MapService,

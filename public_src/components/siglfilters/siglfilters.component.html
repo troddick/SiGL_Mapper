@@ -1,0 +1,18 @@
+<div id="searchContainer">    
+    <div>
+        <ul id="filterTabs" class="nav nav-tabs">
+            <li [ngClass]="{'active':selectedTabName==='sites'}"><a (click)="selectTab('sites')">Search Sites</a></li>
+            <li [ngClass]="{'active':selectedTabName==='projects'}"><a (click)="selectTab('projects')">Search Projects</a></li>
+        </ul>
+        <div style="padding-top: 10px;">
+            <div id="sitesTab" *ngIf="selectedTabName==='sites'">
+                <div id="sitesContent">something about SITES</div> 
+            </div>
+            <div id="projectsTab" *ngIf="selectedTabName==='projects'">
+                <div id="projectContent">
+                    something about PROJECTS
+                </div>
+            </div>                                
+        </div>
+    </div>
+</div>

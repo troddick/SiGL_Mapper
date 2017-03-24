@@ -1,15 +1,16 @@
-<nav class="navbar nav-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#" scroll-to="welcome" offset="50"><span>Angular2-Leaflet-Starter</span></a>
+<nav id="header" class="navbar nav-default navbar-fixed-top" role="navigation">
+    <div id="usgsLogoDiv" class="navbar-header">
+        <img id="usgsLogo" alt="USGS Logo" src="images/usgsLogo.png" /><!--</a>-->
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-left">
-            <li><a href="https://github.com/haoliangyu/angular2-leaflet-starter" target="_blank">GitHub</a></li>
-        </ul>
+        <div id="title">SiGL</div>
+        <div id="titleSeparator">:</div>
+        <div id="subTitle">Science in the Great Lakes TEST</div>        
     </div>
 </nav>
 
 <div id="map">
-    <navigator></navigator>
-    <toolbar></toolbar>
+    <!--<navigator></navigator>
+    <toolbar></toolbar>-->
+    <siglfilters></siglfilters>
 </div>

@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin  = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeJsPlugin = require("optimize-js-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -15,7 +16,8 @@ module.exports = {
     devtool: "source-map",
     entry: {
        // 'vendor': path.resolve(srcDir, 'libs.ts'),
-        'app': path.resolve(srcDir, 'bootstrap.ts')
+        //'app': path.resolve(srcDir, 'app.module.ts')
+        'app':  './src/app.module.ts'    //main app.module
     },
     output: {
         path: path.resolve(__dirname,outputDir),
@@ -24,7 +26,7 @@ module.exports = {
         chunkFilename: '[id].[hash].chunk.js'
     },
     resolve: {
-        extensions: ['.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css']
+        extensions: ['.ts', '.js', '.less', '.css']
     },
     module: {
         loaders: [
@@ -33,7 +35,7 @@ module.exports = {
             { test: /\.component\.html$/, use: 'raw-loader' },
             { test: /(\.component|)\.less$/, use: ['to-string-loader', 'css-loader', 'less-loader'] },
             { test: /\.css$/, use: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'}) },
-           { test: /\.(png|gif|jpg)$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.(png|gif|jpg)$/, use:'file-loader'},
             { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
             { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
@@ -78,7 +80,12 @@ module.exports = {
             cssProcessor: require('cssnano'),
             cssProcessorOptions: { discardComments: { removeAll: true } },
             canPrint: true
-        })
+        }),
+        new CopyWebpackPlugin([
+          { from: 'src/assets', to: 'assets' },        
+          { from: 'node_modules/font-awesome/css/font-awesome.min.css', to: 'assets/font-awesome/css/font-awesome.min.css'},
+          { from: 'node_modules/font-awesome/fonts', to: 'assets/font-awesome/fonts'}   
+      ])
     ]
 };
 function root(__path) {

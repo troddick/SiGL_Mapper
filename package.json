@@ -47,6 +47,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.0",

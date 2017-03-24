@@ -1,21 +1,16 @@
 import {Component, ViewChild} from "@angular/core";
- // import {NavigatorComponent} from "../navigator/navigator.component";
- // import {ToolbarComponent} from "../toolbar/toolbar.component";
-import {SiglFiltersComponent} from "../siglfilters/siglfilters.component";
 import {MapService} from "../../services/map.service";
 import {GeocodingService} from "../../services/geocoding.service";
 import {Location} from "../../core/location.class";
 
 @Component({
-    selector: "app",
-    template: require<any>("./app.component.html"),
+    selector: "mainview",
+    template: require<any>("./mainview.component.html"),
     styles: [
-        require<any>("./app.component.less")
-    ],
-    providers: []
+        require<any>("./mainview.component.less")
+    ]
 })
-export class AppComponent {
-
+export class MainviewComponent {
   //  @ViewChild(ToolbarComponent) toolbarComponent: ToolbarComponent;
 
     constructor(private mapService: MapService, private geocoder: GeocodingService) {

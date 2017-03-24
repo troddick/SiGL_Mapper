@@ -5,27 +5,20 @@ import {NgModule} from "@angular/core";
 import {FormsModule}   from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 
-import {AppComponent} from "./components/app/app.component";
- // import {NavigatorComponent} from "./components/navigator/navigator.component";
+import {AppComponent} from "./app/app.component";
+import {MainviewComponent} from "./app/mainview/mainview.component";
+import {SidebarComponent} from "./app/sidebar/sidebar.component";
  // import {ToolbarComponent} from "./components/toolbar/toolbar.component";
-import {SiglFiltersComponent} from "./components/siglfilters/siglfilters.component";
+import {NavbarComponent} from "./app/navbar/navbar.component";
 
 import {MapService} from "./services/map.service";
 import {GeocodingService} from "./services/geocoding.service";
 
 @NgModule({
-    imports: [HttpModule, FormsModule, BrowserModule],
     bootstrap: [AppComponent],
-    declarations: [
-        AppComponent,
-  //      NavigatorComponent,
-       // ToolbarComponent,
-        SiglFiltersComponent
-    ],
-    providers: [
-        MapService,
-        GeocodingService
-    ]
+    imports: [HttpModule, FormsModule, BrowserModule],
+    declarations: [ AppComponent, MainviewComponent, SidebarComponent, NavbarComponent ],
+    providers: [ MapService, GeocodingService ]
 })
 
 export class AppModule {}

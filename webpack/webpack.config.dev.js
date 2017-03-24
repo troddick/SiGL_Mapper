@@ -3,6 +3,7 @@ const path = require('path'); //needed to resolve output path
 
 const HtmlWebpackPlugin  = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
@@ -14,7 +15,8 @@ module.exports = {
     devtool: "eval",
     entry: {       
         //'vendor': path.resolve(srcDir, 'libs.ts'),
-        'app': path.resolve(srcDir, 'bootstrap.ts')
+        //'app': path.resolve(srcDir, 'app.module.ts')
+        'app':  './src/app.module.ts'    //main app.module
     },
     output: {
         path: path.resolve(__dirname,outputDir),
@@ -23,7 +25,7 @@ module.exports = {
         chunkFilename: '[id].[hash].chunk.js'
     },
     resolve: {
-        extensions: ['.ts', '.component.ts', '.service.ts', '.js', '.component.html', '.component.less', '.less', '.css']
+        extensions: ['.ts', '.js', '.less', '.css']
     },
     module: {       
         rules: [
@@ -32,7 +34,7 @@ module.exports = {
             { test: /\.component\.html$/, use: ['raw-loader'] },
             { test: /(\.component|)\.less$/, use: ['to-string-loader', 'css-loader', 'less-loader'] },
             { test: /\.css$/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })},
-            { test: /\.(png|gif|jpg)$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
+            { test: /\.(png|gif|jpg)$/, use:'file-loader'},
             { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
             { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
@@ -74,7 +76,12 @@ module.exports = {
         new WebpackCleanupPlugin({
           exclude: ['index.html', 'data/airports.geojson']
         }),
-        new webpack.LoaderOptionsPlugin({debug:true})
+        new webpack.LoaderOptionsPlugin({debug:true}),
+        new CopyWebpackPlugin([
+        { from: 'src/assets', to: 'assets' },        
+        { from: 'node_modules/font-awesome/css/font-awesome.min.css', to: 'assets/font-awesome/css/font-awesome.min.css'},
+        { from: 'node_modules/font-awesome/fonts', to: 'assets/font-awesome/fonts'}        
+      ])
     ]
 };
 function root(__path) {

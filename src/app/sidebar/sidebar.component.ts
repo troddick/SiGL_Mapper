@@ -1,15 +1,15 @@
 import {Component} from "@angular/core";
 
 @Component({
-    selector: "siglfilters",
-    template: require<any>("./siglfilters.component.html"),
+    selector: "sidebar",
+    template: require<any>("./sidebar.component.html"),
     styles: [
-        require<any>("./siglfilters.component.less"),
+        require<any>("./sidebar.component.less"),
         require<any>("../../styles/main.less")
     ],
     providers: []
 })
-export class SiglFiltersComponent {
+export class SidebarComponent {
     public selectedTabName: string;
 
     constructor() {

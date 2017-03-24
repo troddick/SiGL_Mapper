@@ -9,7 +9,7 @@ const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const srcDir = 'public_src';
-const outputDir = './public';
+const outputDir = '../public';
 
 module.exports = {
     devtool: "source-map",
@@ -18,7 +18,7 @@ module.exports = {
         'app': path.resolve(srcDir, 'bootstrap.ts')
     },
     output: {
-        path: path.resolve(__dirname, './public'),
+        path: path.resolve(__dirname,outputDir),// path.resolve(__dirname, './public'),
         filename: '[name].[hash].bundle.js',
         sourceMapFilename: '[name].[hash].map',
         chunkFilename: '[id].[hash].chunk.js'

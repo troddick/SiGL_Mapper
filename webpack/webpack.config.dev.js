@@ -8,7 +8,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 
 const srcDir = 'public_src';
-const outputDir = './public';
+const outputDir = '../public';
 
 module.exports = {
     devtool: "eval",
@@ -17,7 +17,7 @@ module.exports = {
         'app': path.resolve(srcDir, 'bootstrap.ts')
     },
     output: {
-        path: path.resolve(__dirname, './public'),
+        path: path.resolve(__dirname,outputDir),//path.resolve(__dirname, './public'),
         filename: '[name].[hash].bundle.js',
         sourceMapFilename: '[name].[hash].map',
         chunkFilename: '[id].[hash].chunk.js'

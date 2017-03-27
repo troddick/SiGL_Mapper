@@ -10,7 +10,10 @@
     "angular2",
     "leaflet"
   ],
-  "authors": ["Tonia Roddick <troddick@usgs.gov>", "Erik Myers <emyers@usgs.gov>"],
+  "authors": [
+    "Tonia Roddick <troddick@usgs.gov>",
+    "Erik Myers <emyers@usgs.gov>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/USGS-WiM/SiGL/issues"
@@ -21,7 +24,6 @@
     "watch": "webpack --config webpack/webpack.config.dev.js --watch",
     "server:dev": "webpack-dev-server --config webpack/webpack.config.dev.js --progress --profile --watch --content-base src/",
     "server": "npm run server:dev"
-    
   },
   "homepage": "https://github.com/haoliangyu/angular2-leaflet-starter#readme",
   "dependencies": {
@@ -41,12 +43,13 @@
     "leaflet": "^1.0.3",
     "leaflet.vectorgrid": "https://github.com/haoliangyu/Leaflet.VectorGrid.git",
     "ng2-bootstrap": "^1.3.3",
-    "optimize-css-assets-webpack-plugin": "^1.3.0",    
+    "optimize-css-assets-webpack-plugin": "^1.3.0",
     "reflect-metadata": "^0.1.9",
     "rxjs": "5.1.1",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
+    "angular-2-dropdown-multiselect": "^1.0.5",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.1.0",

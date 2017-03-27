@@ -4,36 +4,94 @@
             <li [ngClass]="{'active':selectedTabName==='sites'}"><a (click)="selectTab('sites')">Search Sites</a></li>
             <li [ngClass]="{'active':selectedTabName==='projects'}"><a (click)="selectTab('projects')">Search Projects</a></li>
         </ul>
-        <div style="padding-top: 10px;">
+        <div>
             <div id="sitesTab" *ngIf="selectedTabName==='sites'">
                 <div id="sitesContent">
                     <h2>Enter at least one search term.</h2>
-                    <div class="sidebar-item">
+                    <div>
                         <label>Parameters:</label>
                         <div class="row">
                             <div class="col-xs-12">
-                                <select [ngModel]="selectedParameter" (ngModelChange)="onRegSelect($event)" name="parameter">
-                                    <option [ngValue]="p" *ngFor="let p of parameterList">{{p.parameter}}</option>                                    
-                                </select>                                
+                                <ss-multiselect-dropdown [options]="parameterMulti" (ngModelChange)="multiChange('parameters', $event)" [settings]="multiSettings" [(ngModel)]="parameterSelected"></ss-multiselect-dropdown>                            
                             </div>
                         </div>
                         <br clear="all"/>
-                    </div>  <!-- end sidebar-item-->   
+                    </div>  <!-- end Parameter-->   
 
-                    <div class="sidebar-item">
+                    <div>
                         <label>Project Duration:</label>
                         <div class="row">
                             <div class="col-xs-12">
-                                <select [ngModel]="selectedProjDuration" (ngModelChange)="onRegSelect($event)" name="projDuration">
-                                    <option [ngValue]="pd" *ngFor="let pd of projDurationList">{{pd.duration_value}}</option>                                    
-                                </select>                                
+                                <ss-multiselect-dropdown [options]="projDurationMulti" (ngModelChange)="multiChange('duration', $event)" [(ngModel)]="projDurationSelected"></ss-multiselect-dropdown>
                             </div>
                         </div>
                         <br clear="all"/>
-                    </div>  <!-- end sidebar-item-->   
+                    </div>  <!-- end Duration-->   
 
-                                  
+                    <div>
+                        <label>Project Status:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ss-multiselect-dropdown [options]="projStatusMulti" (ngModelChange)="multiChange('status', $event)" [(ngModel)]="projStatusSelected"></ss-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end Status-->  
+
+                    <div>
+                        <label>Resource Component:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ss-multiselect-dropdown [options]="resourceMulti" (ngModelChange)="multiChange('resource', $event)" [(ngModel)]="resourseSelected"></ss-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end Resource-->  
+
+                    <div>
+                        <label>Media:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ss-multiselect-dropdown [options]="mediaMulti" (ngModelChange)="multiChange('media', $event)" [(ngModel)]="mediaSelected"></ss-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end Media-->  
+
+                    <div>
+                        <label>Great Lake:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ss-multiselect-dropdown [options]="lakeMulti" (ngModelChange)="multiChange('lake', $event)" [(ngModel)]="lakeSelected"></ss-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end Lake-->  
+
+                    <div>
+                        <label>State/Province:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ss-multiselect-dropdown [options]="stateMulti" (ngModelChange)="multiChange('state', $event)" [(ngModel)]="stateSelected"></ss-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end Lake-->  
+
+                    <div>
+                        <label>Monitoring effort or coordination:</label>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ss-multiselect-dropdown [options]="monitorEffortMulti" (ngModelChange)="multiChange('monitorEffort', $event)" [(ngModel)]="monitorEffortSelected"></ss-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <br clear="all"/>
+                    </div>  <!-- end Lake-->  
+
                 </div><!--end sitesContent-->
+                <div>
+                    <button (click)="clearSiteFilters()" style="color:black;">Clear All</button>
+                    <button (click)="searchSites()" style="color:black;">Search</button>
             </div><!-- end sitesTab-->
             <div id="projectsTab" *ngIf="selectedTabName==='projects'">
                 <div id="projectContent">

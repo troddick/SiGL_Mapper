@@ -3,7 +3,10 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angul
 import { Observable }   from "rxjs/Observable";
 import { Subject }      from "rxjs/Subject";
 import { CONFIG } from "./config";
+import {Iproject} from "../app/interfaces/project.interface";
 import {IsitesFilter} from "../app/interfaces/sitesFilter.interface";
+import {IprojectFilter} from "../app/interfaces/projectFilter.interface";
+import {Ifullsite} from "../app/interfaces/fullsite.interface";
 import {Isite} from "../app/interfaces/site.interface";
 import {Iparameter} from "../app/interfaces/parameter.interface";
 import {IprojDuration} from "../app/interfaces/projduration.interface";
@@ -11,8 +14,10 @@ import {IprojStatus} from "../app/interfaces/projstatus.interface";
 import {Iresource} from "../app/interfaces/resource.interface";
 import {Imedia} from "../app/interfaces/media.interface";
 import {Ilake} from "../app/interfaces/lake.interface";
-// import {Istate} from "../app/interfaces/state.interface";
+import {Ifullproject} from "../app/interfaces/fullproject.interface";
 import {ImonitorEffort} from "../app/interfaces/monitoreffort.interface";
+import {Iorganization} from "../app/interfaces/organization.interface";
+import {Iobjective} from "../app/interfaces/objective.interface";
 
 @Injectable()
 export class SiGLService {
@@ -25,6 +30,9 @@ export class SiGLService {
         this.getLakes();
         this.getStates();
         this.getMonitorEfforts();
+        this.getProjects();
+        this.getOrganizations();
+        this.getObjectives();
     }
 
     //////////// getSites ///////////////////////////////////
@@ -45,10 +53,35 @@ export class SiGLService {
         siteParams.set("ProjMonitorCoords", s.monitorEffect.join(","));
 
         let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS, search: siteParams });
-        this._http.get(CONFIG.FILTERED_SITES, options)
+        this._http.get(CONFIG.FILTERED_SITES_URL, options)
             .map(res => <Array<Isite>>res.json()).subscribe(s => {
                 this._filteredSites.next(s);
             }, error => this.handleError);
+    }
+
+    /////////// getProjectFullSites /////////////////////////////////////
+    private _fullSites: Subject<Array<Ifullsite>> = new Subject<Array<Ifullsite>>();
+    public get projectFullSites(): Observable<Array<Ifullsite>> {
+        return this._fullSites.asObservable();
+    }
+    private _fullProject: Subject<Ifullproject> = new Subject<Ifullproject>();
+    public get fullProject(): Observable<Ifullproject> {
+        return this._fullProject.asObservable();
+    }
+    //the project was chosen, go get fullProject and the list of FullSites
+    public set project(p: Iproject){
+        let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS});
+        //get fullProject
+        this._http.get(CONFIG.PROJECT_URL + "/"+ p.project_id, options)
+            .map(res => <Ifullproject>res.json()).subscribe(fp => {
+                this._fullProject.next(fp);
+                 // get fullSites list
+                 this._http.get(CONFIG.PROJECT_URL + "/"+ p.project_id + "/ProjectFullSites", options)
+                     .map(res => <Array<Ifullsite>>res.json()).subscribe(fs => {
+                         this._fullSites.next(fs);
+                     }, error => this.handleError);
+            }, error => this.handleError);
+        
     }
 
     //////////// PARAMETERS ///////////////////////////
@@ -156,7 +189,7 @@ export class SiGLService {
             }, error => this.handleError);
     }
 
-    //////////// STATES ///////////////////////////
+    //////////// MONITOR EFFORTS ///////////////////////////
     private _monEffortSubject: Subject<Array<ImonitorEffort>> = new Subject<Array<ImonitorEffort>>();
     // getter
     public get monitorEfforts(): Observable<Array<ImonitorEffort>> {
@@ -168,6 +201,51 @@ export class SiGLService {
         this._http.get(CONFIG.MONITOR_EFFORTS_URL, options)
             .map(res => <Array<ImonitorEffort>>res.json()).subscribe(me => {
                 this._monEffortSubject.next(me);
+            }, error => this.handleError);
+    }
+
+    ///////////////// PROJECTS //////////////////////
+    private _projectSubject: Subject<Array<Iproject>> = new Subject<Array<Iproject>>();
+    // getter
+    public get projects(): Observable<Array<Iproject>> {
+        return this._projectSubject.asObservable();
+    }
+    // http request
+    private getProjects(): void {
+        let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS });
+        this._http.get(CONFIG.PROJECT_URL, options)
+            .map(res => <Array<Iproject>>res.json()).subscribe(p => {
+                this._projectSubject.next(p);
+            }, error => this.handleError);
+    }
+
+    //////////// ORGANIZATIONS ///////////////////////////
+    private _organizationSubject: Subject<Array<Iorganization>> = new Subject<Array<Iorganization>>();
+    // getter
+    public get organizations(): Observable<Array<Iorganization>> {
+        return this._organizationSubject.asObservable();
+    }
+    // http request
+    private getOrganizations(): void {
+        let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS });
+        this._http.get(CONFIG.ORGANIZATION_URL, options)
+            .map(res => <Array<Iorganization>>res.json()).subscribe(o => {
+                this._organizationSubject.next(o);
+            }, error => this.handleError);
+    }
+
+    //////////// OBJECTIVES ///////////////////////////
+    private _objectiveSubject: Subject<Array<Iobjective>> = new Subject<Array<Iobjective>>();
+    // getter
+    public get objectives(): Observable<Array<Iobjective>> {
+        return this._objectiveSubject.asObservable();
+    }
+    // http request
+    private getObjectives(): void {
+        let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS });
+        this._http.get(CONFIG.OBJECTIVE_URL, options)
+            .map(res => <Array<Iobjective>>res.json()).subscribe(obj => {
+                this._objectiveSubject.next(obj);
             }, error => this.handleError);
     }
 

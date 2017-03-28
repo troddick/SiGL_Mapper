@@ -13,9 +13,10 @@ export class CONFIG {
     public static get LAKES_URL(): string { return this.baseURL + "Lakes"; };
     public static get STATES_URL(): string { return this.baseURL + "sites/StatesWithSites"; };
     public static get MONITOR_EFFORTS_URL(): string { return this.baseURL + "MonitorCoordinations"; };
-    public static get FILTERED_SITES(): string { return this.baseURL + "sites/FilteredSites.json"; };
-
-
+    public static get FILTERED_SITES_URL(): string { return this.baseURL + "sites/FilteredSites"; };
+    public static get PROJECT_URL(): string { return this.baseURL + "projects"; };
+    public static get ORGANIZATION_URL(): string { return this.baseURL + "organizations"; };
+    public static get OBJECTIVE_URL(): string {return this.baseURL + "objectives";};
     public static get MIN_JSON_HEADERS() { return new Headers({ "Accept": "application/json" }); };
     public static get JSON_HEADERS() { return new Headers({ "Accept": "application/json", "Content-Type": "application/json" }); };
 

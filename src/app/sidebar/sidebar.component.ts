@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {SiGLService} from "../../services/siglservices.service";
 import {IsitesFilter} from "../interfaces/sitesFilter.interface";
-import {IprojectFilter} from "../interfaces/projectFilter.interface";
 import {Isite} from "../interfaces/site.interface";
 import {Iproject} from "../interfaces/project.interface";
 import {Ifullsite} from "../interfaces/fullsite.interface";
@@ -53,8 +52,8 @@ export class SidebarComponent {
     public p_monitorEffortSelected: Array<number> //holds ids for selected (on project tab)
     public objectiveMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
     public objectiveSelected: Array<number>; // holds ids of selected
-    public siteFilters: IsitesFilter; // holds arrays of selected values to pass to services
-    public projectFilters: IprojectFilter; // holds arrays of selected values to pass to services
+    public siteTabFilters: IsitesFilter; // holds arrays of selected values to pass to services
+    public projectTabFilters: IsitesFilter; // holds arrays of selected values to pass to services
     public multiSettings: IMultiSelectSettings; // setting to try and get optgroup as selectable (not working)
     public filteredSites: Array<Isite>; // sites returned from "Search"
     public projectList: Array<Iproject>;
@@ -70,10 +69,8 @@ export class SidebarComponent {
     ngOnInit() {
         this.multiSettings = {selectionLimit: 0, autoUnselect: false};
         // instantiate
-        this.siteFilters = { lakes: [], media: [], monitorEffect: [], parameters: [],
-            projDuration: [], projStatus: [], resources: [], states: []};
-        // instantiate
-        this.projectFilters = { organizations: 0, monitorEffect: [], objectives: [], duration: [], status: [], lakes: [], states: [] };
+        this.siteTabFilters = { s_parameters: [], s_projDuration: [], s_projStatus: [], s_resources: [], s_media: [], s_lakes: [], s_states: [], s_monitorEffect: []};
+        this.projectTabFilters = { p_organizations: 0, p_monitorEffect: [], p_objectives: [], p_projDuration: [], p_projStatus: [], p_lakes: [], p_states: [] };
         // populate dropdowns
         // parameters
         this._siglService.parameters.subscribe((p: Array<Iparameter>) => {
@@ -153,9 +150,9 @@ export class SidebarComponent {
                 this.monitorEffortMulti.push({id: mel.monitoring_coordination_id, name: mel.effort});
             });
         });
-        // sites
+        // sites  ( this will update everytime Search is clicked )
         this._siglService.sites.subscribe((s: Array<Isite>) => {
-            this.filteredSites = s; // this will update everytime Search is clicked on the Sites tab
+            this.filteredSites = s; 
         });
         // projects
         this._siglService.projects.subscribe((proj: Array<Iproject>) => {
@@ -199,43 +196,48 @@ export class SidebarComponent {
         this.lakeSelected = [];
         this.stateSelected = [];
         this.monitorEffortSelected = [];
-        this.siteFilters = { lakes: [], media: [], monitorEffect: [], parameters: [],
-            projDuration: [], projStatus: [], resources: [], states: []};
-        
-        
+        this.siteTabFilters = { s_parameters: [], s_projDuration: [], s_projStatus: [], s_resources: [], s_media: [], s_lakes: [], s_states: [], s_monitorEffect: []};
     }    
     // every time a site filter option is chosen from the multiselects, update the siteFilters object with selected array
-    public siteMultiChange(which: string, e: Array<any>): void {
+    public siteFilterChange(which: string, e: any): void {
         switch(which) {
             case "parameters":
-                this.siteFilters.parameters = e;
+                // dont add optgroup id (1000, 2000, 3000, 4000, 5000)
+                this.siteTabFilters.s_parameters = [];
+                e.forEach((eachParam) => {
+                    if (eachParam !== 1000 && eachParam !== 2000 && eachParam !== 3000 && eachParam !== 4000 && eachParam !== 5000){
+                        this.siteTabFilters.s_parameters.push(eachParam);
+                    }
+                });
                 break;
             case "duration":
-                this.siteFilters.projDuration = e;
+                this.siteTabFilters.s_projDuration = e;
                 break;
             case "status":
-                this.siteFilters.projStatus = e;
+                this.siteTabFilters.s_projStatus = e;
                 break;
             case "resource":
-                this.siteFilters.resources = e;
+                this.siteTabFilters.s_resources = e;
                 break;
             case "media":
-                this.siteFilters.media = e;
+                this.siteTabFilters.s_media = e;
                 break;
             case "lake":
-                this.siteFilters.lakes = e;
+                this.siteTabFilters.s_lakes = e;
                 break;
             case "state":
-                this.siteFilters.states = e;
+                this.siteTabFilters.s_states = e;
                 break;
             case "monitorEffort":
-                this.siteFilters.monitorEffect = e;
+                this.siteTabFilters.s_monitorEffect = e;
                 break;
         }
     }
     // get sites based on selected values
     public searchSites(): void {
-        this._siglService.filteredSites = this.siteFilters;        
+        // make sure the project tab filters are cleared out before submitting since a few filters are duplicated and could cause confusion
+        this.clearProjectFilters();
+        this._siglService.filteredSites(this.siteTabFilters, "sites");
     }
     // END SITE SECTION LOGIC //////////////////////////////////
 
@@ -244,32 +246,7 @@ export class SidebarComponent {
     public onProjectSelect(e: Iproject){
         this._siglService.project = e;
     }
-
-    public projectMultiChange(which: string, e: any): void{
-        switch(which) {
-            case "org":
-                this.projectFilters.organizations = e.organization_id;
-                break;
-            case "monitorEffort":
-                this.projectFilters.monitorEffect = e;
-                break;
-            case "objective":
-                this.projectFilters.objectives = e;
-                break;
-            case "duration":
-                this.projectFilters.duration = e;
-                break;
-            case "status":
-                this.projectFilters.status = e;
-                break;           
-            case "lake":
-                this.projectFilters.lakes = e;
-                break;
-            case "state":
-                this.projectFilters.states = e;
-                break;            
-        }
-    }
+   
     public clearProjectFilters(){
         this.selectedOrg = undefined;
         this.p_monitorEffortSelected = [];
@@ -279,11 +256,38 @@ export class SidebarComponent {
         this.p_lakeSelected = [];
         this.p_stateSelected = [];
 
-        this.projectFilters = { organizations: 0, monitorEffect: [], objectives: [], duration: [], status: [], lakes: [], states: [] };
+        this.projectTabFilters = { p_organizations: 0, p_monitorEffect: [], p_objectives: [], p_projDuration: [], p_projStatus: [], p_lakes: [], p_states: [] };
     }
-
+// every time a site filter option is chosen from the multiselects, update the siteFilters object with selected array
+    public projectFilterChange(which: string, e: any): void {
+        switch(which) {
+            case "org":
+                this.projectTabFilters.p_organizations = e.organization_id;
+                break;
+            case "monitorEffort":
+                this.projectTabFilters.p_monitorEffect = e;
+                break;
+            case "objective":
+                this.projectTabFilters.p_objectives = e;
+                break;
+            case "duration":
+                this.projectTabFilters.p_projDuration = e;
+                break;
+            case "status":
+                this.projectTabFilters.p_projStatus = e;
+                break;            
+            case "lake":
+                this.projectTabFilters.p_lakes = e;
+                break;
+            case "state":
+                this.projectTabFilters.p_states = e;
+                break;
+        }
+    }
     public searchProjSites(){
-        //left off here
+        // make sure the site tab filters are cleared out before submitting since a few filters are duplicated and could cause confusion
+        this.clearSiteFilters();
+        this._siglService.filteredSites(this.projectTabFilters, "project");
     }
 
     // END PROJECT SECTION LOGIC //////////////////////////////////

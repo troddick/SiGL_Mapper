@@ -5,7 +5,6 @@ import { Subject }      from "rxjs/Subject";
 import { CONFIG } from "./config";
 import {Iproject} from "../app/interfaces/project.interface";
 import {IsitesFilter} from "../app/interfaces/sitesFilter.interface";
-import {IprojectFilter} from "../app/interfaces/projectFilter.interface";
 import {Ifullsite} from "../app/interfaces/fullsite.interface";
 import {Isite} from "../app/interfaces/site.interface";
 import {Iparameter} from "../app/interfaces/parameter.interface";
@@ -40,22 +39,33 @@ export class SiGLService {
     public get sites(): Observable<Array<Isite>> {
         return this._filteredSites.asObservable();
     }
-    public set filteredSites(s: IsitesFilter){
-        // ?Parameters=45&Duration=&Status=&ResComp=&Media=&Lake=&State=&ProjMonitorCoords=
+    public filteredSites(s: IsitesFilter, whichTab: string){
         let siteParams: URLSearchParams = new URLSearchParams();
-        siteParams.set("Parameters", s.parameters.join(","));
-        siteParams.set("Duration", s.projDuration.join(","));
-        siteParams.set("Status", s.projStatus.join(","));
-        siteParams.set("ResComp", s.resources.join(","));
-        siteParams.set("Media", s.media.join(","));
-        siteParams.set("Lake", s.lakes.join(","));
-        siteParams.set("State", s.states.join(","));
-        siteParams.set("ProjMonitorCoords", s.monitorEffect.join(","));
+        if (whichTab == "project"){
+            // ?ProjOrg=&ProjObjs=&Duration=&ProjMonitorCoords=1&Status=&Lake=&State=   (ProjectTab)
+            siteParams.set("ProjOrg", s.p_organizations.toString());
+            siteParams.set("ProjMonitorCoords", s.p_monitorEffect.join(","));
+            siteParams.set("ProjObjs", s.p_objectives.join(","));
+            siteParams.set("Duration", s.p_projDuration.join(","));
+            siteParams.set("Status", s.p_projStatus.join(","));
+            siteParams.set("Lake", s.p_lakes.join(","));
+            siteParams.set("State", s.p_states.join(","));
+        } else {
+            // ?Parameters=45&Duration=&Status=&ResComp=&Media=&Lake=&State=&ProjMonitorCoords= (SiteTab)
+            siteParams.set("Parameters", s.s_parameters.join(","));
+            siteParams.set("Duration", s.s_projDuration.join(","));
+            siteParams.set("Status", s.s_projStatus.join(","));
+            siteParams.set("ResComp", s.s_resources.join(","));
+            siteParams.set("Media", s.s_media.join(","));
+            siteParams.set("Lake", s.s_lakes.join(","));
+            siteParams.set("State", s.s_states.join(","));
+            siteParams.set("ProjMonitorCoords", s.s_monitorEffect.join(","));
+        }        
 
         let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS, search: siteParams });
         this._http.get(CONFIG.FILTERED_SITES_URL, options)
-            .map(res => <Array<Isite>>res.json()).subscribe(s => {
-                this._filteredSites.next(s);
+            .map(res => <Array<Isite>>res.json()).subscribe(site => {
+                this._filteredSites.next(site);
             }, error => this.handleError);
     }
 
@@ -71,8 +81,8 @@ export class SiGLService {
     //the project was chosen, go get fullProject and the list of FullSites
     public set project(p: Iproject){
         let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS});
-        //get fullProject
-        this._http.get(CONFIG.PROJECT_URL + "/"+ p.project_id, options)
+        //get fullProject Projects/GetFullProject.json?ByProject=2098
+        this._http.get(CONFIG.PROJECT_URL + "/GetFullProject.json?ByProject="+ p.project_id, options)
             .map(res => <Ifullproject>res.json()).subscribe(fp => {
                 this._fullProject.next(fp);
                  // get fullSites list

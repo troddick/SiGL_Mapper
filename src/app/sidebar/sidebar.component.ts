@@ -29,28 +29,28 @@ import { IMultiSelectOption, IMultiSelectSettings  } from "angular-2-dropdown-mu
 })
 export class SidebarComponent {
     public selectedTabName: string;
-    public parameterMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public parameterMulti: Array<IMultiSelectOption> = []; // dropdown multiselect contents
     public parameterSelected: Array<number>; // holds ids of selected
-    public projDurationMulti: Array<IMultiSelectOption>;  // dropdown multiselect contents
+    public projDurationMulti: Array<IMultiSelectOption> = [];;  // dropdown multiselect contents
     public projDurationSelected: Array<number>; // holds ids of selected
     public p_durationSelected: Array<number>; //holds ids of selected ( on project tab)
-    public projStatusMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public projStatusMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public projStatusSelected: Array<number>; // holds ids of selected
     public p_statusSelected: Array<number>; //holds ids of selected (on project tab)
-    public resourceMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public resourceMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public resourseSelected: Array<number>; // holds ids of selected
-    public mediaMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public mediaMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public mediaSelected: Array<number>; // holds ids of selected
-    public lakeMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public lakeMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public lakeSelected: Array<number>; // holds ids of selected
     public p_lakeSelected: Array<number>; // holds ids of selected (on project tab)
-    public stateMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public stateMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public stateSelected: Array<string>; // holds ids of selected
     public p_stateSelected: Array<string>; // holds ids of selected (on project tab)
-    public monitorEffortMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public monitorEffortMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public monitorEffortSelected: Array<number>; // holds ids of selected
     public p_monitorEffortSelected: Array<number> //holds ids for selected (on project tab)
-    public objectiveMulti: Array<IMultiSelectOption>; // dropdown multiselect contents
+    public objectiveMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public objectiveSelected: Array<number>; // holds ids of selected
     public siteTabFilters: IsitesFilter; // holds arrays of selected values to pass to services
     public projectTabFilters: IsitesFilter; // holds arrays of selected values to pass to services

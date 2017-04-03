@@ -15,5 +15,5 @@ export class NavbarComponent {
   ngOnInit() {
     this.title = "SiGL";
     this.subTitle = "Science in the Great Lakes";
-  }
+  }  
 }

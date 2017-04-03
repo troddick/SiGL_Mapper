@@ -34,6 +34,15 @@ export class SiGLService {
         this.getObjectives();
     }
 
+    //show the filter modal in the mainview
+    private _showHideFilters: Subject<boolean> = new Subject<boolean>();
+    public set showModal(something:any){
+        this._showHideFilters.next(something);
+    }
+    //show the filter modal in the mainview
+    public get showModal():any{
+        return this._showHideFilters.asObservable();
+    }
     //////////// getSites ///////////////////////////////////
     private _filteredSites: Subject<Array<Isite>> = new Subject<Array<Isite>>();
     public get sites(): Observable<Array<Isite>> {
@@ -254,7 +263,8 @@ export class SiGLService {
     private getObjectives(): void {
         let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS });
         this._http.get(CONFIG.OBJECTIVE_URL, options)
-            .map(res => <Array<Iobjective>>res.json()).subscribe(obj => {
+            .map(res => <Array<Iobjective>>res.json())
+            .subscribe(obj => {
                 this._objectiveSubject.next(obj);
             }, error => this.handleError);
     }

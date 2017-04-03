@@ -40,7 +40,7 @@ module.exports = {
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]},
             { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use:[{ loader: 'file-loader', options: { name: '[path][name].[ext]'} } ]}
-        ],
+        ]
        // noParse: /node_modules|angular2|bundles/
         //noParse: [ path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'angular2'), path.resolve(__dirname, 'bundles') ]
     },
@@ -80,7 +80,9 @@ module.exports = {
         new CopyWebpackPlugin([
         { from: 'src/assets', to: 'assets' },        
         { from: 'node_modules/font-awesome/css/font-awesome.min.css', to: 'assets/font-awesome/css/font-awesome.min.css'},
-        { from: 'node_modules/font-awesome/fonts', to: 'assets/font-awesome/fonts'}        
+        { from: 'node_modules/font-awesome/fonts', to: 'assets/font-awesome/fonts'},
+        { from: 'node_modules/wim-styles/core/css/wim.css', to: 'assets/wim-styles/css/wim.css'}//,
+     //   { from: 'node_modules/bootstrap/dist/css/bootstrap.css', to: 'assets/bootstrap/css/bootstrap.css'}
       ])
     ]
 };

@@ -6,6 +6,8 @@ import {FormsModule}   from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { Draggable } from './app/mainview/draggable.directive';
+import { ModalModule } from 'ng2-bootstrap/modal';
+import { AccordionModule } from 'ng2-bootstrap/accordion';
 import {AppComponent} from "./app/app.component";
 import {InfowindowComponent} from "./app/infowindow/infowindow.component";
 import {MainviewComponent} from "./app/mainview/mainview.component";
@@ -18,7 +20,7 @@ import {GeocodingService} from "./services/geocoding.service";
 
 @NgModule({
     bootstrap: [AppComponent],
-    imports: [HttpModule, FormsModule, BrowserModule, MultiselectDropdownModule ],
+    imports: [HttpModule, FormsModule, BrowserModule, MultiselectDropdownModule, AccordionModule.forRoot(), ModalModule.forRoot() ],    
     declarations: [ AppComponent, MainviewComponent, InfowindowComponent, SidebarComponent, NavbarComponent, Draggable ],
     providers: [ SiGLService, MapService, GeocodingService ]
 })

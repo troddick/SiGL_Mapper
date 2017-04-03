@@ -14,7 +14,10 @@ import {Location} from "../core/location.class";
         <mainview></mainview>
         `,
     styles: [
-        require<any>("./app.component.less")
+            './app.component.less', 
+            '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+        //require<any>("./app.component.less"),
+        //require<any>("../../node_modules/bootstrap/dist/css/bootstrap.min.css")
     ]
 })
 export class AppComponent {

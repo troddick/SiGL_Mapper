@@ -54,7 +54,7 @@ export class SidebarComponent {
    // public objectiveMulti: Array<IMultiSelectOption> = [];; // dropdown multiselect contents
     public objectiveSelected: Array<number>; // holds ids of selected
     public siteTabFilters: IsitesFilter; // holds arrays of selected values to pass to services
-    public projectTabFilters: IsitesFilter; // holds arrays of selected values to pass to services
+   // public projectTabFilters: IsitesFilter; // holds arrays of selected values to pass to services
     public multiSettings: IMultiSelectSettings; // setting to try and get optgroup as selectable (not working)
     public filteredSites: Array<Isite>; // sites returned from "Search"
     public projectList: Array<Iproject>;
@@ -70,8 +70,8 @@ export class SidebarComponent {
     ngOnInit() {
         this.multiSettings = {selectionLimit: 0, autoUnselect: false};
         // instantiate
-        this.siteTabFilters = { s_parameters: [], s_projDuration: [], s_projStatus: [], s_resources: [], s_media: [], s_lakes: [], s_states: [], s_monitorEffect: []};
-        this.projectTabFilters = { p_organizations: 0, p_monitorEffect: [], p_objectives: [], p_projDuration: [], p_projStatus: [], p_lakes: [], p_states: [] };
+       // this.siteTabFilters = { s_parameters: [], s_projDuration: [], s_projStatus: [], s_resources: [], s_media: [], s_lakes: [], s_states: [], s_monitorEffect: []};
+     //   this.projectTabFilters = { p_organizations: 0, p_monitorEffect: [], p_objectives: [], p_projDuration: [], p_projStatus: [], p_lakes: [], p_states: [] };
         // populate dropdowns
         
         // sites  ( this will update everytime Search is clicked )
@@ -86,68 +86,14 @@ export class SidebarComponent {
         this._siglService.fullProject.subscribe((fullP: Ifullproject) => {
             this.fullProject = fullP; // this will update everytime Search is clicked on the Project tab
         });       
+        //show the chosen filters in sidebar
+        this._siglService.chosenFilters.subscribe((f: IsitesFilter) => {
+          this.siteTabFilters = f;  
+        }); // same as subscribe?
     }
     
     public showChildModal(){
         //pass the filters already chosen along too
         this._siglService.showModal = true;
     }
-    
-    // toggle site tab / project tab
-    public selectTab(tabname: string): void {
-        if (this.selectedTabName === tabname) return;
-        this.selectedTabName = tabname;
-    }
-
-    // SITE SECTION LOGIC ////////////////////////////////////
-   
-    
-    // END SITE SECTION LOGIC //////////////////////////////////
-
-    // PROJECT SECTION LOGIC ////////////////////////////////////
-    
-   
-    public clearProjectFilters(){
-        this.selectedOrg = undefined;
-        this.p_monitorEffortSelected = [];
-        this.objectiveSelected = [];
-        this.p_durationSelected = [];
-        this.p_statusSelected = [];
-        this.p_lakeSelected = [];
-        this.p_stateSelected = [];
-
-        this.projectTabFilters = { p_organizations: 0, p_monitorEffect: [], p_objectives: [], p_projDuration: [], p_projStatus: [], p_lakes: [], p_states: [] };
-    }
-// every time a site filter option is chosen from the multiselects, update the siteFilters object with selected array
-    public projectFilterChange(which: string, e: any): void {
-        switch(which) {
-            case "org":
-                this.projectTabFilters.p_organizations = e.organization_id;
-                break;
-            case "monitorEffort":
-                this.projectTabFilters.p_monitorEffect = e;
-                break;
-            case "objective":
-                this.projectTabFilters.p_objectives = e;
-                break;
-            case "duration":
-                this.projectTabFilters.p_projDuration = e;
-                break;
-            case "status":
-                this.projectTabFilters.p_projStatus = e;
-                break;            
-            case "lake":
-                this.projectTabFilters.p_lakes = e;
-                break;
-            case "state":
-                this.projectTabFilters.p_states = e;
-                break;
-        }
-    }
-    public searchProjSites(){        
-        this._siglService.filteredSites(this.projectTabFilters, "project");
-    }
-
-    // END PROJECT SECTION LOGIC //////////////////////////////////
-
 }

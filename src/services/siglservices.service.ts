@@ -43,23 +43,27 @@ export class SiGLService {
     public get showModal():any{
         return this._showHideFilters.asObservable();
     }
+
+    // filters chosen from modal, tell sidebar to show the ones chosen    
+    private _chosenFilters: Subject<any> = new Subject<any>();
+    public set chosenFilters(something:any){
+        this._chosenFilters.next(something);
+    }
+    public get chosenFilters():any{
+        return this._chosenFilters.asObservable();
+    }
+
     //////////// getSites ///////////////////////////////////
     private _filteredSites: Subject<Array<Isite>> = new Subject<Array<Isite>>();
     public get sites(): Observable<Array<Isite>> {
         return this._filteredSites.asObservable();
     }
-    public filteredSites(s: IsitesFilter, whichTab: string){
+    public filteredSites(s: IsitesFilter){
         let siteParams: URLSearchParams = new URLSearchParams();
-        if (whichTab == "project"){
             // ?ProjOrg=&ProjObjs=&Duration=&ProjMonitorCoords=1&Status=&Lake=&State=   (ProjectTab)
             siteParams.set("ProjOrg", s.p_organizations.toString());
-            siteParams.set("ProjMonitorCoords", s.p_monitorEffect.join(","));
             siteParams.set("ProjObjs", s.p_objectives.join(","));
-            siteParams.set("Duration", s.p_projDuration.join(","));
-            siteParams.set("Status", s.p_projStatus.join(","));
-            siteParams.set("Lake", s.p_lakes.join(","));
-            siteParams.set("State", s.p_states.join(","));
-        } else {
+            
             // ?Parameters=45&Duration=&Status=&ResComp=&Media=&Lake=&State=&ProjMonitorCoords= (SiteTab)
             siteParams.set("Parameters", s.s_parameters.join(","));
             siteParams.set("Duration", s.s_projDuration.join(","));
@@ -69,7 +73,7 @@ export class SiGLService {
             siteParams.set("Lake", s.s_lakes.join(","));
             siteParams.set("State", s.s_states.join(","));
             siteParams.set("ProjMonitorCoords", s.s_monitorEffect.join(","));
-        }        
+               
 
         let options = new RequestOptions({ headers: CONFIG.MIN_JSON_HEADERS, search: siteParams });
         this._http.get(CONFIG.FILTERED_SITES_URL, options)

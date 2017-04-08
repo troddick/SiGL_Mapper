@@ -1,9 +1,9 @@
 <div id="map">
-    <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div bsModal #childModal="bs-modal" [config]="{backdrop: 'static', ignoreBackdropClick:'true'}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title pull-left">Child modal</h4>
+                    <h4 class="modal-title pull-left">Filters</h4>
                     <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -71,6 +71,7 @@
                         <label class="col-xs-3">Organization:</label>
                         <div class="col-xs-6">
                             <select class="form-control" [(ngModel)]="selectedOrg" (ngModelChange)="siteFilterChange('org', $event)" name="organization">
+                                <option value=""></option>
                                 <option [ngValue]="o" *ngFor="let o of organizationList">{{o.organization_name}}</option>
                             </select>
                         </div>

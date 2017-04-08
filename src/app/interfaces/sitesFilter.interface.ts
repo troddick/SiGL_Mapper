@@ -1,18 +1,25 @@
+import { IMultiSelectOption  } from "angular-2-dropdown-multiselect";
+import {Iorganization} from "./organization.interface";
+
 export interface IsitesFilter {
     s_parameters?: Array<number>;
+    PARAMETERS?: Array<IMultiSelectOption>;
     s_projDuration?: Array<number>;
+    DURATIONS?: Array<IMultiSelectOption>;
     s_projStatus?: Array<number>;
+    STATUSES?: Array<IMultiSelectOption>;
     s_resources?: Array<number>;
+    RESOURCES?: Array<IMultiSelectOption>;
     s_media?: Array<number>;
+    MEDIA?: Array<IMultiSelectOption>;
     s_lakes?:Array<number>;
+    LAKES?: Array<IMultiSelectOption>;
     s_states?:Array<string>;
+    STATES?: Array<IMultiSelectOption>;
     s_monitorEffect?: Array<number>;
-
+    MONITORS?:Array<IMultiSelectOption>;
     p_organizations?: number;
-    p_monitorEffect?: Array<number>;
+    ORG?: Iorganization;
     p_objectives?: Array<number>;
-    p_projDuration?: Array<number>;
-    p_projStatus?: Array<number>;
-    p_lakes?:Array<number>;
-    p_states?:Array<string>;
+    OBJS?:Array<IMultiSelectOption>;
 }

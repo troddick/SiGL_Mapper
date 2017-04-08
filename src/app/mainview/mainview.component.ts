@@ -163,7 +163,6 @@ export class MainviewComponent {
             });
         });
 
-
         //show the filter modal
         this._siglService.showModal.subscribe((show: boolean) => {
             if (show) this.showChildModal();            
@@ -196,41 +195,77 @@ export class MainviewComponent {
         switch(which) {
             case "parameters":
                 // dont add optgroup id (1000, 2000, 3000, 4000, 5000)
-                this.siteTabFilters.s_parameters = [];
+                this.siteTabFilters.s_parameters = []; this.siteTabFilters.PARAMETERS = [];
                 e.forEach((eachParam) => {
                     if (eachParam !== 1000 && eachParam !== 2000 && eachParam !== 3000 && eachParam !== 4000 && eachParam !== 5000){
                         this.siteTabFilters.s_parameters.push(eachParam);
+                        //update sidebar's filter choices here too
+                        this.siteTabFilters.PARAMETERS.push(this.parameterMulti.filter(function(p){return p.id == eachParam;})[0]);                        
                     }
                 });
                 break;
             case "duration":
                 this.siteTabFilters.s_projDuration = e;
+                this.siteTabFilters.DURATIONS = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.DURATIONS.push(this.projDurationMulti.filter(function(d){return d.id == eachParam;})[0]);
+                });
                 break;
             case "status":
                 this.siteTabFilters.s_projStatus = e;
+                this.siteTabFilters.STATUSES = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.STATUSES.push(this.projStatusMulti.filter(function(s){return s.id == eachParam;})[0]);
+                });
                 break;
             case "resource":
-                this.siteTabFilters.s_resources = e;
+                this.siteTabFilters.s_resources = e;                
+                this.siteTabFilters.RESOURCES = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.RESOURCES.push(this.resourceMulti.filter(function(r){return r.id == eachParam;})[0]);
+                });
                 break;
             case "media":
                 this.siteTabFilters.s_media = e;
+                this.siteTabFilters.MEDIA = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.MEDIA.push(this.mediaMulti.filter(function(s){return s.id == eachParam;})[0]);
+                });
                 break;
             case "lake":
                 this.siteTabFilters.s_lakes = e;
+                this.siteTabFilters.LAKES = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.LAKES.push(this.lakeMulti.filter(function(l){return l.id == eachParam;})[0]);
+                });
                 break;
             case "state":
                 this.siteTabFilters.s_states = e;
+                this.siteTabFilters.STATES = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.STATES.push(this.stateMulti.filter(function(st){return st.id == eachParam;})[0]);
+                });
                 break;
             case "monitorEffort":
                 this.siteTabFilters.s_monitorEffect = e;
+                this.siteTabFilters.MONITORS = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.MONITORS.push(this.monitorEffortMulti.filter(function(mc){return mc.id == eachParam;})[0]);
+                });
                 break;
             case "org":
                 this.siteTabFilters.p_organizations = e.organization_id;
+                this.siteTabFilters.ORG = e;
                 break;           
             case "objective":
                 this.siteTabFilters.p_objectives = e;
+                this.siteTabFilters.OBJS = [];
+                e.forEach((eachParam) => {
+                    this.siteTabFilters.OBJS.push(this.objectiveMulti.filter(function(ot){return ot.id == eachParam;})[0]);
+                });
                 break;
         }
+        this._siglService.chosenFilters = this.siteTabFilters; //setter
     }
      // clear the selected site filters
     public clearFilters(): void {
@@ -263,6 +298,6 @@ export class MainviewComponent {
     }
     // search for sites with these filters
     public searchSites(): void {
-        this._siglService.filteredSites(this.siteTabFilters, "sites");
+        this._siglService.filteredSites(this.siteTabFilters);
     }
 }

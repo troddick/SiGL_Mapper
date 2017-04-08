@@ -14,197 +14,69 @@
             </div>
             <div><!-- accordion-body for filters -->
                 <h3>Current Filters</h3>
-                <button type="button" class="btn btn-primary" (click)="showChildModal()">Open child modal</button>
+                <button type="button" class="btn btn-primary" (click)="showChildModal()">Change filters</button>
+                <div *ngIf="siteTabFilters?.PARAMETERS">
+                    <span *ngIf="siteTabFilters.PARAMETERS.length > 0">Parameter<span *ngIf="siteTabFilters.PARAMETERS.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let p of siteTabFilters.PARAMETERS;">{{p.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.DURATIONS">
+                    <span *ngIf="siteTabFilters.DURATIONS.length > 0">Duration<span *ngIf="siteTabFilters.DURATIONS.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let d of siteTabFilters.DURATIONS;">{{d.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.STATUSES">
+                    <span *ngIf="siteTabFilters.STATUSES.length > 0">Status<span *ngIf="siteTabFilters.STATUSES.length > 1">es</span>:</span>
+                    <ul>
+                        <li *ngFor="let s of siteTabFilters.STATUSES;">{{s.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.RESOURCES">
+                    <span *ngIf="siteTabFilters.RESOURCES.length > 0">Resource<span *ngIf="siteTabFilters.RESOURCES.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let r of siteTabFilters.RESOURCES;">{{r.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.MEDIA">
+                    <span *ngIf="siteTabFilters.MEDIA.length > 0">Media:</span>
+                    <ul>
+                        <li *ngFor="let m of siteTabFilters.MEDIA;">{{m.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.LAKES">
+                    <span *ngIf="siteTabFilters.LAKES.length > 0">Lake<span *ngIf="siteTabFilters.LAKES.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let l of siteTabFilters.LAKES;">{{l.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.STATES">
+                    <span *ngIf="siteTabFilters.STATES.length > 0">State<span *ngIf="siteTabFilters.STATES.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let st of siteTabFilters.STATES;">{{st.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.MONITORS">
+                    <span *ngIf="siteTabFilters.MONITORS.length > 0">Monitoring Effort<span *ngIf="siteTabFilters.MONITORS.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let mc of siteTabFilters.MONITORS;">{{mc.name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.ORG">
+                    <span>Organization:</span>
+                    <ul>
+                        <li>{{siteTabFilters.ORG.organization_name}}</li>
+                    </ul>
+                </div>
+                <div *ngIf="siteTabFilters?.OBJS">
+                    <span *ngIf="siteTabFilters.OBJS.length > 0">Objective<span *ngIf="siteTabFilters.OBJS.length > 1">s</span>:</span>
+                    <ul>
+                        <li *ngFor="let obj of siteTabFilters.OBJS;">{{obj.name}}</li>
+                    </ul>
+                </div>
                 
             </div>
         </accordion-group>        
     </accordion>
-    <!--<div class="sidebar-group">
-        <ul id="filterTabs" class="nav nav-tabs">
-            <li [ngClass]="{'active':selectedTabName==='sites'}"><a (click)="selectTab('sites')">Search Sites</a></li>
-            <li [ngClass]="{'active':selectedTabName==='projects'}"><a (click)="selectTab('projects')">Search Projects</a></li>
-        </ul>
-        <div>
-            <div id="sitesTab" *ngIf="selectedTabName==='sites'">
-                <div id="sitesContent">
-                    <h2>Enter at least one search term.</h2>
-                    <div>
-                        <label>Parameters:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="parameterMulti" (ngModelChange)="siteFilterChange('parameters', $event)" [(ngModel)]="parameterSelected"></ss-multiselect-dropdown>                            
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Parameter
-
-                    <div>
-                        <label>Project Duration:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="projDurationMulti" (ngModelChange)="siteFilterChange('duration', $event)" [(ngModel)]="projDurationSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Duration
-
-                    <div>
-                        <label>Project Status:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="projStatusMulti" (ngModelChange)="siteFilterChange('status', $event)" [(ngModel)]="projStatusSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Status
-
-                    <div>
-                        <label>Resource Component:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="resourceMulti" (ngModelChange)="siteFilterChange('resource', $event)" [(ngModel)]="resourseSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Resource
-
-                    <div>
-                        <label>Media:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="mediaMulti" (ngModelChange)="siteFilterChange('media', $event)" [(ngModel)]="mediaSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Media
-
-                    <div>
-                        <label>Great Lake:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="lakeMulti" (ngModelChange)="siteFilterChange('lake', $event)" [(ngModel)]="lakeSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Lake
-
-                    <div>
-                        <label>State/Province:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="stateMulti" (ngModelChange)="siteFilterChange('state', $event)" [(ngModel)]="stateSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end State
-
-                    <div>
-                        <label>Monitoring effort or coordination:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="monitorEffortMulti" (ngModelChange)="siteFilterChange('monitorEffort', $event)" [(ngModel)]="monitorEffortSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Monitoring
-
-                    <div>
-                        <button (click)="clearSiteFilters()" style="color:black;">Clear All</button>
-                        <button (click)="searchSites()" style="color:black;">Search</button>
-                    </div>
-                </div><!--end sitesContent
-            </div><!-- end sitesTab
-            <div id="projectsTab" *ngIf="selectedTabName==='projects'">
-                <div id="projectContent">
-                    <div class="paddingBottom">
-                        <label>Search by project name:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <select [(ngModel)]="selectedProject" (ngModelChange)="onProjectSelect($event)" name="project">
-                                    <option [ngValue]="p" *ngFor="let p of projectList">{{p.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Project Name
-                    <hr />
-                    <div>
-                        <label>Organization:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <select [(ngModel)]="selectedOrg" (ngModelChange)="projectMultiChange('org', $event)" name="organization">
-                                    <option [ngValue]="o" *ngFor="let o of organizationList">{{o.organization_name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Organizations 
-
-                    <div>
-                        <label>Monitoring effort or coordination:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="monitorEffortMulti" (ngModelChange)="projectFilterChange('monitorEffort', $event)" [(ngModel)]="p_monitorEffortSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Monitoring
-
-                    <div>
-                        <label>Project Objective:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="objectiveMulti" (ngModelChange)="projectFilterChange('objective', $event)" [(ngModel)]="objectiveSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Objective
-
-                    <div>
-                        <label>Project Duration:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="projDurationMulti" (ngModelChange)="projectFilterChange('duration', $event)" [(ngModel)]="p_durationSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Duration
-
-                    <div>
-                        <label>Project Status:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="projStatusMulti" (ngModelChange)="projectFilterChange('status', $event)" [(ngModel)]="p_statusSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Status
-
-                     <div>
-                        <label>Great Lake:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="lakeMulti" (ngModelChange)="projectFilterChange('lake', $event)" [(ngModel)]="p_lakeSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end Lake
-
-                    <div>
-                        <label>State/Province:</label>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ss-multiselect-dropdown [options]="stateMulti" (ngModelChange)="projectFilterChange('state', $event)" [(ngModel)]="p_stateSelected"></ss-multiselect-dropdown>
-                            </div>
-                        </div>
-                        <br clear="all"/>
-                    </div>  <!-- end State
-                    <div>
-                        <button (click)="clearProjectFilters()" style="color:black;">Clear All</button>
-                        <button (click)="searchProjSites()" style="color:black;">Search</button>
-                    </div>
-                </div>
-            </div><!-- end projectTab
-        </div>
-    </div>-->
 </div>

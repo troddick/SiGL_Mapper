@@ -1,0 +1,64 @@
+<h3>Current Filters</h3>
+
+<button type="button" class="btn btn-primary" (click)="showChildModal()">Change filters</button>
+
+<div *ngIf="siteTabFilters?.PARAMETERS">
+    <span *ngIf="siteTabFilters.PARAMETERS.length > 0">Parameter<span *ngIf="siteTabFilters.PARAMETERS.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let p of siteTabFilters.PARAMETERS;">{{p.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.DURATIONS">
+    <span *ngIf="siteTabFilters.DURATIONS.length > 0">Duration<span *ngIf="siteTabFilters.DURATIONS.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let d of siteTabFilters.DURATIONS;">{{d.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.STATUSES">
+    <span *ngIf="siteTabFilters.STATUSES.length > 0">Status<span *ngIf="siteTabFilters.STATUSES.length > 1">es</span>:</span>
+    <ul>
+        <li *ngFor="let s of siteTabFilters.STATUSES;">{{s.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.RESOURCES">
+    <span *ngIf="siteTabFilters.RESOURCES.length > 0">Resource<span *ngIf="siteTabFilters.RESOURCES.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let r of siteTabFilters.RESOURCES;">{{r.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.MEDIA">
+    <span *ngIf="siteTabFilters.MEDIA.length > 0">Media:</span>
+    <ul>
+        <li *ngFor="let m of siteTabFilters.MEDIA;">{{m.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.LAKES">
+    <span *ngIf="siteTabFilters.LAKES.length > 0">Lake<span *ngIf="siteTabFilters.LAKES.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let l of siteTabFilters.LAKES;">{{l.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.STATES">
+    <span *ngIf="siteTabFilters.STATES.length > 0">State<span *ngIf="siteTabFilters.STATES.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let st of siteTabFilters.STATES;">{{st.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.MONITORS">
+    <span *ngIf="siteTabFilters.MONITORS.length > 0">Monitoring Effort<span *ngIf="siteTabFilters.MONITORS.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let mc of siteTabFilters.MONITORS;">{{mc.name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.ORG">
+    <span>Organization:</span>
+    <ul>
+        <li>{{siteTabFilters.ORG.organization_name}}</li>
+    </ul>
+</div>
+<div *ngIf="siteTabFilters?.OBJS">
+    <span *ngIf="siteTabFilters.OBJS.length > 0">Objective<span *ngIf="siteTabFilters.OBJS.length > 1">s</span>:</span>
+    <ul>
+        <li *ngFor="let obj of siteTabFilters.OBJS;">{{obj.name}}</li>
+    </ul>
+</div>

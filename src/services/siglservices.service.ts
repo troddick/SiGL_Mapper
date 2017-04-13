@@ -58,6 +58,7 @@ export class SiGLService {
     public get sites(): Observable<Array<Isite>> {
         return this._filteredSites.asObservable();
     }
+    //http request. populates _filteredSites
     public filteredSites(s: IsitesFilter){
         let siteParams: URLSearchParams = new URLSearchParams();
             // ?ProjOrg=&ProjObjs=&Duration=&ProjMonitorCoords=1&Status=&Lake=&State=   (ProjectTab)

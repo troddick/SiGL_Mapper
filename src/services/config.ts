@@ -13,7 +13,7 @@ export class CONFIG {
     public static get LAKES_URL(): string { return this.baseURL + "Lakes"; };
     public static get STATES_URL(): string { return this.baseURL + "sites/StatesWithSites"; };
     public static get MONITOR_EFFORTS_URL(): string { return this.baseURL + "MonitorCoordinations"; };
-    public static get FILTERED_SITES_URL(): string { return this.baseURL + "sites/FilteredSites"; };
+    public static get FILTERED_SITES_URL(): string { return this.baseURL + "sites/FilteredSites.geojson"; };
     public static get PROJECT_URL(): string { return this.baseURL + "projects"; };
     public static get ORGANIZATION_URL(): string { return this.baseURL + "organizations"; };
     public static get OBJECTIVE_URL(): string {return this.baseURL + "objectives";};

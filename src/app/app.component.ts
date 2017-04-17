@@ -1,10 +1,10 @@
 import {Component, ViewChild} from "@angular/core";
-import {SidebarComponent} from "./sidebar/sidebar.component";
-import {NavbarComponent} from "./navbar/navbar.component";
-import {MainviewComponent} from "./mainview/mainview.component";
+import {SidebarComponent} from "./sidebar.component/sidebar.component";
+import {NavbarComponent} from "./navbar.component/navbar.component";
+import {MainviewComponent} from "./mainview.component/mainview.component";
 import {ModalDirective } from 'ng2-bootstrap/modal';
 import {Location} from "../core/location.class";
-import {FiltermodalComponent} from "./filtermodal/filtermodal.component";
+import {FiltermodalComponent} from "./filtermodal.component/filtermodal.component";
 
 @Component({
     selector: "app",

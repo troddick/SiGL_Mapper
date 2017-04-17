@@ -8,12 +8,12 @@ import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { ModalModule } from 'ng2-bootstrap/modal';
 import { AccordionModule } from 'ng2-bootstrap/accordion';
 import {AppComponent} from "./app/app.component";
-import {FiltersideComponent} from "./app/filter/filterside.component";
-import {FiltermodalComponent} from "./app/filtermodal/filtermodal.component";
-import {BasemapsComponent} from "./app/basemaps/basemaps.component"; 
-import {MainviewComponent} from "./app/mainview/mainview.component";
-import {SidebarComponent} from "./app/sidebar/sidebar.component";
-import {NavbarComponent} from "./app/navbar/navbar.component";
+import {FiltersideComponent} from "./app/filter.component/filterside.component";
+import {FiltermodalComponent} from "./app/filtermodal.component/filtermodal.component";
+import {BasemapsComponent} from "./app/basemaps.component/basemaps.component"; 
+import {MainviewComponent} from "./app/mainview.component/mainview.component";
+import {SidebarComponent} from "./app/sidebar.component/sidebar.component";
+import {NavbarComponent} from "./app/navbar.component/navbar.component";
 
 import {SiGLService} from "./services/siglservices.service";
 import {MapService} from "./services/map.service";

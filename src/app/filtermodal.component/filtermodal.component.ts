@@ -3,21 +3,22 @@ import {ModalDirective } from 'ng2-bootstrap/modal';
 import {MapService} from "../../services/map.service";
 import {SiGLService} from "../../services/siglservices.service";
 import {IMultiSelectOption, IMultiSelectSettings  } from "angular-2-dropdown-multiselect";
-import {Iparameter} from "../interfaces/parameter.interface";
-import {IprojDuration} from "../interfaces/projduration.interface";
-import {IprojStatus} from "../interfaces/projstatus.interface";
-import {Iresource} from "../interfaces/resource.interface";
-import {Imedia} from "../interfaces/media.interface";
-import {Ilake} from "../interfaces/lake.interface";
-import {Istate} from "../interfaces/state.interface";
-import {ImonitorEffort} from "../interfaces/monitoreffort.interface";
-import {Iorganization} from "../interfaces/organization.interface";
-import {Iobjective} from "../interfaces/objective.interface";
-import {IsitesFilter} from "../interfaces/sitesFilter.interface";
-import {Isite} from "../interfaces/site.interface";
-import {Iproject} from "../interfaces/project.interface";
-import {Ifullsite} from "../interfaces/fullsite.interface";
-import {Ifullproject} from "../interfaces/fullproject.interface";
+import {Iparameter} from "../../core/parameter.interface";
+import {IprojDuration} from "../../core/projduration.interface";
+import {IprojStatus} from "../../core/projstatus.interface";
+import {Iresource} from "../../core/resource.interface";
+import {Imedia} from "../../core/media.interface";
+import {Ilake} from "../../core/lake.interface";
+import {Istate} from "../../core/state.interface";
+import {ImonitorEffort} from "../../core/monitoreffort.interface";
+import {Iorganization} from "../../core/organization.interface";
+import {Iobjective} from "../../core/objective.interface";
+import {IsitesFilter} from "../../core/sitesFilter.interface";
+import {Isite} from "../../core/site.interface";
+import {Iproject} from "../../core/project.interface";
+import {Ifullsite} from "../../core/fullsite.interface";
+import {Ifullproject} from "../../core/fullproject.interface";
+
 @Component({
     selector: "filtermodal",
     template: require<any>("./filtermodal.component.html"),
@@ -61,8 +62,7 @@ export class FiltermodalComponent {
     public organizationList: Array<Iorganization>; // dropdown multiselect contents
     public selectedOrg: Iorganization; // holds ids of selected
     
-    constructor(private mapService: MapService, private _siglService: SiGLService) {
-    }
+    constructor(private _mapService: MapService, private _siglService: SiGLService) { }
 
     ngOnInit() {
         this.siteTabFilters = {p_organizations: 0,p_objectives: [], s_parameters: [], s_projDuration: [], s_projStatus: [], s_resources: [], s_media: [], s_lakes: [], s_states: [], s_monitorEffect: []};
@@ -249,26 +249,26 @@ export class FiltermodalComponent {
     }    
     //show the modal
     public showChildModal():void {
-        this.mapService.map.dragging.disable();
-        this.mapService.map.touchZoom.disable();
-        this.mapService.map.doubleClickZoom.disable();
-        this.mapService.map.scrollWheelZoom.disable();
-        this.mapService.map.boxZoom.disable();
-        this.mapService.map.keyboard.disable();
-        if (this.mapService.map.tap) this.mapService.map.tap.disable();
+        this._mapService.map.dragging.disable();
+        this._mapService.map.touchZoom.disable();
+        this._mapService.map.doubleClickZoom.disable();
+        this._mapService.map.scrollWheelZoom.disable();
+        this._mapService.map.boxZoom.disable();
+        this._mapService.map.keyboard.disable();
+        if (this._mapService.map.tap) this._mapService.map.tap.disable();
         //document.getElementById('map').style.cursor='default';
         this.childModal.show();//pass in chosen filters
     }
     //hide the modal
     public hideChildModal():void {
         this._siglService.showModal = false;
-        this.mapService.map.dragging.enable();
-        this.mapService.map.touchZoom.enable();
-        this.mapService.map.doubleClickZoom.enable();
-        this.mapService.map.scrollWheelZoom.enable();
-        this.mapService.map.boxZoom.enable();
-        this.mapService.map.keyboard.enable();
-        if (this.mapService.map.tap) this.mapService.map.tap.enable();
+        this._mapService.map.dragging.enable();
+        this._mapService.map.touchZoom.enable();
+        this._mapService.map.doubleClickZoom.enable();
+        this._mapService.map.scrollWheelZoom.enable();
+        this._mapService.map.boxZoom.enable();
+        this._mapService.map.keyboard.enable();
+        if (this._mapService.map.tap) this._mapService.map.tap.enable();
         this.childModal.hide();
     }
     // project was selected, go get all the parts

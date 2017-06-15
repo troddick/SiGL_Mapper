@@ -1,6 +1,6 @@
 import {Component } from "@angular/core";
-import {FiltersideComponent} from "../filter.component/filterside.component";
-import {BasemapsComponent} from "../basemaps.component/basemaps.component";
+// import {FiltersideComponent} from "../filter.component/filterside.component";
+import {BasemapsComponent} from "../map.module/basemaps.component/basemaps.component";
 
 @Component({
     selector: "sidebar",

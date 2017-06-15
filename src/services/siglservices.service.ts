@@ -3,20 +3,20 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angul
 import { Observable }   from "rxjs/Observable";
 import { Subject }      from "rxjs/Subject";
 import { CONFIG } from "./config";
-import {Iproject} from "../app/interfaces/project.interface";
-import {IsitesFilter} from "../app/interfaces/sitesFilter.interface";
-import {Ifullsite} from "../app/interfaces/fullsite.interface";
-import {Isite} from "../app/interfaces/site.interface";
-import {Iparameter} from "../app/interfaces/parameter.interface";
-import {IprojDuration} from "../app/interfaces/projduration.interface";
-import {IprojStatus} from "../app/interfaces/projstatus.interface";
-import {Iresource} from "../app/interfaces/resource.interface";
-import {Imedia} from "../app/interfaces/media.interface";
-import {Ilake} from "../app/interfaces/lake.interface";
-import {Ifullproject} from "../app/interfaces/fullproject.interface";
-import {ImonitorEffort} from "../app/interfaces/monitoreffort.interface";
-import {Iorganization} from "../app/interfaces/organization.interface";
-import {Iobjective} from "../app/interfaces/objective.interface";
+import {Iproject} from "../core/project.interface";
+import {IsitesFilter} from "../core/sitesFilter.interface";
+import {Ifullsite} from "../core/fullsite.interface";
+import {Isite} from "../core/site.interface";
+import {Iparameter} from "../core/parameter.interface";
+import {IprojDuration} from "../core/projduration.interface";
+import {IprojStatus} from "../core/projstatus.interface";
+import {Iresource} from "../core/resource.interface";
+import {Imedia} from "../core/media.interface";
+import {Ilake} from "../core/lake.interface";
+import {Ifullproject} from "../core/fullproject.interface";
+import {ImonitorEffort} from "../core/monitoreffort.interface";
+import {Iorganization} from "../core/organization.interface";
+import {Iobjective} from "../core/objective.interface";
 
 @Injectable()
 export class SiGLService {

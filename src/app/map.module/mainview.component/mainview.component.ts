@@ -1,11 +1,12 @@
 import {Component, ViewChild} from "@angular/core";
-import {MapService} from "../../services/map.service";
-import {SiGLService} from "../../services/siglservices.service";
-import {GeocodingService} from "../../services/geocoding.service";
-import {Location} from "../../core/location.class";
+import {MapService} from "../../../services/map.service";
+import {SiGLService} from "../../../services/siglservices.service";
+import {GeocodingService} from "../../../services/geocoding.service";
+import {Location} from "../../../core/location.class";
+
 @Component({
     selector: "mainview",
-    template: require<any>("./mainview.component.html"),
+    template: `<div id="map"></div>`,// require<any>("./mainview.component.html"),
     styles: [
         require<any>("./mainview.component.less")
     ]
@@ -15,9 +16,7 @@ export class MainviewComponent {
     }
 
     ngOnInit() {
-        this._siglService.sites//.subscribe((s: Array<Isite>) => {
-            //this.filteredSites = s; 
-            //fun with showing points on the map!
+        this._siglService.sites
             .subscribe((result:any) => {
                 L.geoJSON(result, {
                     pointToLayer: function (feature, latlng) {

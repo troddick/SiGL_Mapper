@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers, RequestOptions} from "@angular/http";
-import {Location} from "../core/location.class";
+// import {Location} from "../core/location.class";
 import {Map} from "leaflet";
 
 @Injectable()
@@ -36,7 +36,7 @@ export class MapService {
         };
     }
 
-    public disableMouseEvent(elementId: string) {
+ /*   public disableMouseEvent(elementId: string) {
         let element = <HTMLElement>document.getElementById(elementId);
 
         L.DomEvent.disableClickPropagation(element);
@@ -55,5 +55,5 @@ export class MapService {
                   this.vtLayer.addTo(this.map);
               });
       }
-    }
+    }*/
 }
